@@ -1,6 +1,6 @@
 # Skills
 
-A collection of Claude Code skills for common development workflows.
+Some personal skills I use
 
 ## Available Skills
 
