@@ -36,6 +36,12 @@ For detailed analysis:
 git log <branch> --since="<duration>" --format="%H|%an|%ad|%s" --date=short -- <path>
 ```
 
+For aggregate stats (total commits, files changed, insertions, deletions):
+```bash
+git log <branch> --since="<duration>" --shortstat -- <path>
+```
+Sum the files changed / insertions / deletions across commits to populate the Summary line.
+
 ### 3. Analyze and summarize
 
 If no commits found, report that the path had no changes in the time window.
@@ -52,7 +58,7 @@ git show <hash> -- <path>  # if diff details needed
 ## Summary
 
 [A small summary with bullet points describing the overall nature of changes: what areas were affected,
-what types of changes occurred (features, fixes, refactors), and the general direction]
+what types of changes occurred (features, fixes, refactors), and the general direction, followed by (M files, +X/-Y)]
 
 ## Commits
 
@@ -61,8 +67,8 @@ what types of changes occurred (features, fixes, refactors), and the general dir
 
 | Commit |  PR number (if any) | Author | Date       | Summary                         |
 |--------|---------------------|--------|------------|---------------------------------|
-| abc123 |      #396         | Alice  | 2024-01-15 | Added validation for user input |
-| def456 |      #512         | Bob    | 2024-01-14 | Fixed null pointer in parser    |
+| abc123 |      #396         | Alice  | 2024-01-15 | Added validation for user input (2 files, +15/-0) |
+| def456 |      #512         | Bob    | 2024-01-14 | Fixed null pointer in parser (1 file, +3/-1)    |
 ```
 
 ### Significance criteria (when >10 commits)
