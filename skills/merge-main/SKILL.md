@@ -1,3 +1,4 @@
+---
 name: merge-main
 description: Merge main into the current branch while respecting some rules.
 ---
