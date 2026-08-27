@@ -31,24 +31,29 @@ Convert duration to git date format:
 git log <branch> --since="<duration>" --oneline --stat -- <path>
 ```
 
-For detailed analysis:
+For the commit list (hash, author, date, subject):
 ```bash
 git log <branch> --since="<duration>" --format="%H|%an|%ad|%s" --date=short -- <path>
 ```
 
-For aggregate stats (total commits, files changed, insertions, deletions):
+For aggregate stats only (total files / insertions / deletions across the window):
 ```bash
 git log <branch> --since="<duration>" --shortstat -- <path>
 ```
-Sum the files changed / insertions / deletions across commits to populate the Summary line.
+Sum the files changed / insertions / deletions lines to populate the Summary line. Aggregate totals are "lines touched across files," not a net diff against the start of the window — a file edited in N commits counts N times.
 
 ### 3. Analyze and summarize
 
 If no commits found, report that the path had no changes in the time window.
 
-For each commit, examine:
+For per-commit stats in the output table, query each commit individually:
 ```bash
-git show <hash> --stat -- <path>
+git show --shortstat --format="%H %an %ad %s" --date=short <hash> -- <path>
+```
+Do NOT pair `git log --shortstat` stat lines with commits by eye. The output interleaves commit headers, blank lines, and stat lines, and misattribution is easy and has happened. `git log --shortstat` is only safe for the aggregate sum (where per-commit attribution doesn't matter).
+
+For diff details:
+```bash
 git show <hash> -- <path>  # if diff details needed
 ```
 
